@@ -1,14 +1,22 @@
+
 from ultralytics import YOLO
-import numpy
+import numpy as np
 
-# load a pretrained YOLOv8n model
-model = YOLO("yolov8n.pt", "v8")  
+model = YOLO("yolov8n.pt")
 
-# predict on an image
-detection_output = model.predict(source=r"C:\Users\Admin\AVSCODE\8. YOLO\img\1.jpg", conf=0.25, save=True) 
 
-# Display tensor array
-print(detection_output)
+detection_output = model.predict(
+    source="/Users/aryanchandra/Documents/GitHub/yolo/image.jpg",
+    save=True
+)
 
-# Display numpy array
-# print(detection_output[0].numpy())
+
+for result in detection_output:
+    print(result.boxes)
+
+    
+    numpy_array = result.boxes.xyxy.cpu().numpy()
+    print(numpy_array)
+
+
+    result.show()
